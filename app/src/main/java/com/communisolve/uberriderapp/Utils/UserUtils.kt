@@ -3,6 +3,7 @@ package com.communisolve.uberriderapp.Utils
 import android.content.Context
 import android.view.View
 import com.communisolve.uberriderapp.Common.Common
+import com.communisolve.uberriderapp.Model.TokenModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -25,17 +26,17 @@ object UserUtils {
             }
     }
 
-//    fun updateToken(context: Context, token: String) {
-//        val tokenModel = TokenModel(token)
-//
-//
-//        FirebaseDatabase.getInstance().getReference(Common.TOKEN_REFERENCE)
-//            .child(FirebaseAuth.getInstance().currentUser!!.uid)
-//            .setValue(token)
-//            .addOnFailureListener { exception ->
-//
-//            }.addOnSuccessListener {
-//
-//            }
-//    }
+    fun updateToken(context: Context, token: String) {
+        val tokenModel = TokenModel(token)
+
+
+        FirebaseDatabase.getInstance().getReference(Common.TOKEN_REFERENCE)
+            .child(FirebaseAuth.getInstance().currentUser!!.uid)
+            .setValue(tokenModel)
+            .addOnFailureListener { exception ->
+
+            }.addOnSuccessListener {
+
+            }
+    }
 }

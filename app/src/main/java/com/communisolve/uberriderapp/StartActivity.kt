@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager
 import com.communisolve.uberriderapp.Common.Common
 import com.communisolve.uberriderapp.Event.UserRegistrationBus
 import com.communisolve.uberriderapp.Model.RiderModel
+import com.communisolve.uberriderapp.Utils.UserUtils
 import com.communisolve.uberriderapp.Utils.toast
 import com.firebase.ui.auth.AuthMethodPickerLayout
 import com.firebase.ui.auth.AuthUI
@@ -89,7 +90,7 @@ class StartActivity : AppCompatActivity() {
                     )
                 }
                         .addOnSuccessListener { task ->
-                            //UserUtils.updateToken(this, task.token)
+                            UserUtils.updateToken(this, task.token)
                             Log.d(TAG, "init: ${task.token}")
 
 
