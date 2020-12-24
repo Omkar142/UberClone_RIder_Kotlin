@@ -57,7 +57,8 @@ import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
 
-class HomeFragment : Fragment(), OnMapReadyCallback, IFirebaseDriverInfoListner {
+class HomeFragment : Fragment(), OnMapReadyCallback, IFirebaseDriverInfoListner,
+    IFirebaseFailedListner {
 
     companion object {
         private const val TAG = "HomeFragment"
@@ -112,6 +113,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IFirebaseDriverInfoListner 
     private fun init() {
 
         iFirebaseDriverInfoListner = this
+        iFirebaseFailedListner = this
         locationRequest = LocationRequest()
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
         locationRequest.setFastestInterval(3000)
@@ -429,6 +431,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IFirebaseDriverInfoListner 
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.car))
                 )
             )
+        }
 
 
             if (!TextUtils.isEmpty(cityName)) {
@@ -444,7 +447,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IFirebaseDriverInfoListner 
                     }
 
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        if (snapshot.hasChildren()) {
+                        if (!snapshot.hasChildren()) {
                             if (Common.markerList.get(driverGeoModel!!.key!!) !=null){
                                 Common.markerList.get(driverGeoModel.key!!)!!.remove() // remove marker from map
                                 Common.markerList.remove(driverGeoModel.key!!) //remove marker information
@@ -457,7 +460,12 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IFirebaseDriverInfoListner 
 
                 })
             }
-        }
 
+
+    }
+
+    override fun onFirebaseFailed(message: String) {
+
+        requireContext().toast(message)
     }
 }
