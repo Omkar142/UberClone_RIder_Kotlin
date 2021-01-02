@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.communisolve.uberriderapp.Model.AnimationModel
 import com.communisolve.uberriderapp.Model.DriverGeoModel
 import com.communisolve.uberriderapp.Model.RiderModel
 import com.communisolve.uberriderapp.R
@@ -19,6 +20,7 @@ import com.google.android.gms.maps.model.Marker
 
 object Common {
 
+    val driversSubscribe: MutableMap<String, AnimationModel> = HashMap<String, AnimationModel>()
     val markerList: MutableMap<String, Marker> = HashMap<String, Marker>()
     val driversFound: MutableSet<DriverGeoModel> = HashSet<DriverGeoModel>()
     val DRIVER_LOCATION_REFERENCES: String = "DriversLocation"
@@ -104,8 +106,8 @@ object Common {
 
 
     //DECODE POLY
-    fun decodePoly(encoded: String): List<Any?>? {
-        val poly = ArrayList<Any?>()
+    fun decodePoly(encoded: String): ArrayList<LatLng?>? {
+        val poly = ArrayList<LatLng?>()
         var index = 0
         val len = encoded.length
         var lat = 0
