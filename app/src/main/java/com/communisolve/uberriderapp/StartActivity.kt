@@ -17,6 +17,7 @@ import com.firebase.ui.auth.AuthMethodPickerLayout
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.iid.FirebaseInstanceId
 import org.greenrobot.eventbus.EventBus
@@ -82,6 +83,7 @@ class StartActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
         listner = FirebaseAuth.AuthStateListener { myFirebaseAuth ->
+
             val user = myFirebaseAuth.currentUser
             if (user != null) {
                 FirebaseInstanceId.getInstance().instanceId.addOnFailureListener { exception ->

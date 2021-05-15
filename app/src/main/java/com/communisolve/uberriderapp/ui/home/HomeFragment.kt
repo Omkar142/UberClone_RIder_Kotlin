@@ -82,7 +82,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IFirebaseDriverInfoListner,
     lateinit var locationRequest: LocationRequest
     lateinit var locationCallback: LocationCallback
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-
+    //Load Driver
     var distance = 1.0
     var LIMIT_RANGE = 10.0
     var previousLocation: Location? = null
@@ -119,6 +119,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IFirebaseDriverInfoListner,
         super.onDestroy()
     }
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -127,8 +129,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IFirebaseDriverInfoListner,
         homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        init()
 
+       init()
         mapFragment = childFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -158,6 +160,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IFirebaseDriverInfoListner,
                 )
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newPos, 18f))
 
+
                 //If user has change location, calculate and load driver again
                 if (firstTime) {
                     previousLocation = locationResult.lastLocation
@@ -184,10 +187,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback, IFirebaseDriverInfoListner,
             ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
+
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-
-            requireContext().snackbar(requireView(), "Permission Denied")
+//            requireContext().snackbar(requireView(), "Permission Denied")
             return
         }
         fusedLocationProviderClient.requestLocationUpdates(
